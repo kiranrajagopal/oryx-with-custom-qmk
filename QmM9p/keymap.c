@@ -18,7 +18,9 @@ enum custom_keycodes {
   ST_MACRO_9,
 };
 
-
+void housekeeping_task_user(void) {
+  achordion_task();
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
