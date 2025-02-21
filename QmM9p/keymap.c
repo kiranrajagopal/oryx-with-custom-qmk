@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
+#include "features/achordion.h"
 #define MOON_LED_LEVEL LED_LEVEL
 #define ML_SAFE_RANGE SAFE_RANGE
 
@@ -17,7 +18,20 @@ enum custom_keycodes {
   ST_MACRO_9,
 };
 
+void housekeeping_task_user(void) {
+  achordion_task();
+}
 
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(1, KC_BSPC):
+        case LT(1, KC_SPACE):
+        case LT(1, KC_SLASH):
+            return 140;
+        default:
+            return TAPPING_TERM;
+    }
+}
 
 enum tap_dance_codes {
   DANCE_0,
@@ -117,6 +131,7 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (!process_achordion(keycode, record)) { return false; }
   switch (keycode) {
     case ST_MACRO_0:
     if (record->event.pressed) {
