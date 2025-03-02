@@ -343,7 +343,14 @@ __attribute__((weak)) bool achordion_chord(uint16_t tap_hold_keycode,
 
 // By default, the timeout is 1000 ms for all keys.
 __attribute__((weak)) uint16_t achordion_timeout(uint16_t tap_hold_keycode) {
-  return 800;
+  switch (tap_hold_keycode) {
+    case MT(MOD_RGUI, KC_ENTER):
+    case MT(MOD_LSFT, KC_TAB):
+    case LT(1,KC_BSPC):
+    case LT(2,KC_SPACE):
+      return 0;  // Bypass Achordion for these keys.
+  }
+  return 1000;
 }
 
 // By default, Shift and Ctrl mods are eager, and Alt and GUI are not.
