@@ -22,11 +22,6 @@ void housekeeping_task_user(void) {
   achordion_task();
 }
 
-uint16_t achordion_streak_chord_timeout(
-    uint16_t tap_hold_keycode, uint16_t next_keycode) {
-  return 200;  // Default of 100 ms.
-}
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_voyager(
     KC_ESCAPE,      KC_1,           KC_2,           KC_3,           KC_4,           KC_5,                                           KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_MINUS,       
@@ -65,7 +60,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
         case LT(2,KC_SPACE):
         case MT(MOD_RGUI, KC_ENTER):
         case MT(MOD_LSFT, KC_TAB):
-            return TAPPING_TERM - 50;
+            return TAPPING_TERM - 100;
         default:
             return TAPPING_TERM;
     }
